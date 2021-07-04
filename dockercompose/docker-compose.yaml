@@ -1,0 +1,6 @@
+services:
+    ubuntu:
+        image: moody1511/ubuntupython:1.0.0
+        container_name: ubuntu
+        volumes:
+            - 'C:\Users\moody\Desktop\Linux Certification\Python\Cleanup:/opt/python/'

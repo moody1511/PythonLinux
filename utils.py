@@ -65,27 +65,41 @@ class Utils:
         except FileNotFoundError:
             raise
 
-#Usuwanie plikow z data rekursywnie z folderow
+#Usuwanie najstarszych plików, usuwając wszystkie podkatalogi, zostawiając najnowsze pliki zależne od daty stworzenia
     def deletefilesrecursive(self,path=None,days=None):
         try:
             now = time.time()
-            n=(days)
+            n=1+(days)
             n_days = n * 86400
             for directory_object in os.listdir(path):
                 directory_path = os.path.join(path,directory_object)
                 if os.path.isfile(directory_path) or os.path.islink(directory_path):
                     if os.stat(directory_path).st_mtime <= now - (n_days):
-                        os.remove(directory_path)
-                        print("Deleted ", directory_path)
+                        if ".zip" in directory_path or ".jar" in directory_path or ".rar" in directory_path:
+                            os.remove(directory_path)
+                            print("Deleted ", directory_path)
                 else:
                     shutil.rmtree(directory_path)
         except FileNotFoundError:
             raise
-#Usuwanie najnowszych plików zostawiając stare
+
+#Usuwanie najstarszych(zależnie od nazwy zwiększającej się) zostawiając nowe zależne od delete_oldest
     def deleteoldest(self,path=None,delete_oldest=None):
         try:
             for filename in sorted(os.listdir(path))[:-(delete_oldest)]:
                 filename_relPath = os.path.join(path,filename)
+                print(filename_relPath)
+                os.remove(filename_relPath)
+        except FileNotFoundError:
+            raise
+
+
+#Usuwanie najnowszych(zależnie od nazwy zwiększającej się) zostawiając stare zależne od delete_oldest
+    def deleteoldestreverse(self,path=None,delete_oldest=None):
+        try:
+            for filename in sorted(os.listdir(path),reverse=True)[:-(delete_oldest)]:
+                filename_relPath = os.path.join(path,filename)
+                print(filename_relPath)
                 os.remove(filename_relPath)
         except FileNotFoundError:
             raise
