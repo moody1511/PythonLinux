@@ -27,7 +27,7 @@ def parser_cleanupdirectory():
 
 
 class Utils:
-#Usuwanie pojedyńczych plików z koncówką .zip / .jar /.rar
+#Usuwanie pojedyńczych plików z koncówką .zip / .jar /.rar albo całego folderu
     def cleanup(self,clean_item=None):
         try:
             if ".zip" in clean_item or ".jar" in clean_item or ".rar" in clean_item:
@@ -36,7 +36,7 @@ class Utils:
                 shutil.rmtree(clean_item)
         except FileNotFoundError:
             raise
-#Usuwanie plików rekursywnie z folderów
+#Usuwanie plików rekursywnie z folderów z końcówką .zip .jar .rar
     def cleanup_directory(self,path=None):
         try:
             for directory_object in os.listdir(path):
@@ -45,8 +45,6 @@ class Utils:
                     if os.path.isfile(directory_path) or os.path.islink(directory_path):
                         print(directory_path)
                         os.remove(directory_path)
-                    else:
-                        shutil.rmtree(directory_path)
         except FileNotFoundError:
             raise
 
@@ -56,15 +54,13 @@ class Utils:
             dir_path=(path)
             all_files = os.listdir(path)
             now = time.time()
-            n=(days)
+            n=1+(days)
             n_days = n  * 86400
             for f in all_files:
                 file_path = os.path.join(dir_path, f)
                 if ".zip" in file_path or ".jar" in file_path or ".rar" in file_path:
-                        if os.stat(file_path).st_mtime >= now - (n_days):
-                            print(now)
-                            print(os.stat(file_path).st_mtime)
-                            #os.remove(file_path)
+                        if os.stat(file_path).st_mtime <= now - (n_days):
+                            os.remove(file_path)
                             print("Deleted ", f)
         except FileNotFoundError:
             raise
@@ -78,8 +74,9 @@ class Utils:
             for directory_object in os.listdir(path):
                 directory_path = os.path.join(path,directory_object)
                 if os.path.isfile(directory_path) or os.path.islink(directory_path):
-                    os.remove(directory_path)
-                    print("Deleted ", directory_path)
+                    if os.stat(directory_path).st_mtime <= now - (n_days):
+                        os.remove(directory_path)
+                        print("Deleted ", directory_path)
                 else:
                     shutil.rmtree(directory_path)
         except FileNotFoundError:
