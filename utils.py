@@ -64,15 +64,7 @@ def parser_cleanup():
         '-path',required=True,type=str
     )
     return args.parse_args()
-def parser_dex_register():
-    args = argparse.ArgumentParser()
-    args.add_argument(
-        '-appname', required='true', type=str
-    )
-    args.add_argument(
-        '-host', required='true', type=str
-    )
-    return args.parse_args()
+
 
 def parser_cleanupdirectory():
     args = argparse.ArgumentParser()
@@ -214,7 +206,7 @@ class Utils:
             zip_ref.close()
             self.logger.info("Unziped {}".format(self.download_path_archive))
             self.logger.info("Moving jar to: {} from archive".format("/opt/tools/downloads/{}/".format(apptype)))
-            for file_to_move in glob.glob("{}/{}/{}".format(download_dir, apptype, self.loaded_config["unzip_download_jar_location"])):
+            for file_to_move in glob.glob("{}/{}/{}".format(download_dir, apptype, self.loaded_config["unzip_download_web_location"])):
                 shutil.copy(file_to_move, "/opt/tools/downloads/{}/".format(apptype))
                 self.logger.info("Moved jar to: {} from archive".format("/opt/tools/downloads/{}/".format(apptype)))
         except:
@@ -349,7 +341,7 @@ class Utils:
     def backup_old_web(self):
         try:
             self.logger.info("Backup {}".format(self.directory))
-            subprocess.call('cp -r {}/package.json {}/dist/* {}/backup'.format(self.directory, self.directory, self.directory), shell=True)
+            subprocess.call('cp -r {}/index.html {}/dist/* {}/backup'.format(self.directory, self.directory, self.directory), shell=True)
             self.logger.info("Finished backup {}".format(self.directory))
         except:
             self.logger.error("Failed backup {}".format(self.directory))

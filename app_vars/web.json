@@ -1,5 +1,5 @@
 {
-  "unzip_dex_location": "archive",
+  "unzip_web_location": "archive",
   "directories": [
     "/opt/{{ folder }}",
     "/opt/{{ folder }}/config",
