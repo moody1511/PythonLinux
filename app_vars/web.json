@@ -1,0 +1,11 @@
+{
+  "unzip_dex_location": "archive",
+  "directories": [
+    "/opt/{{ folder }}",
+    "/opt/{{ folder }}/config",
+    "/opt/{{ folder }}/backup",
+    "/opt/{{ folder }}/dist",
+    "/var/log/exchange/{{ folder }}"
+  ]
+}
+
