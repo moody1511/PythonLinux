@@ -1,0 +1,32 @@
+ # def join_tuple_string(strings_tuple) -> str:
+    #     return ' '.join(strings_tuple)
+
+    # result = map(join_tuple_string, exchanges_subaccounts)
+    # test2 = list(result)
+    # test3 = ",".join(test2)
+    # if 'FTX' in test3:
+    #     print(str.indexof("FTX"))
+
+    # test1 = ",".join(list(exchanges_subaccounts)
+    # print(test1)
+
+#Narazie najlepsze rozwiązanie, gdy query jest list[tuple]
+    # tables = [t[0] for t in exchanges_subaccounts]
+    # test2 = [i.split('8SUB')[0] for i in tables]
+    # test3 = list(dict.fromkeys(test2))
+    # test4 = tuple(test3)
+    # print(test4)
+    # for string in test4:
+    #     result = list([i for i in tables if i.startswith(string)])
+    #     print(",".join(result)) 
+ 
+    # x = map(list, list(exchanges_subaccounts))
+    # x = sum(x, [])
+
+    # test1 = ','.join([str(i) for exchange_name in exchanges_subaccounts for i in exchange_name])
+    # for string in test1:
+    #     if string.startswith("FTX"):
+    #         print(string)
+
+    # string = ' '.join(map(str, exchanges_subaccounts))
+    # print(string)
